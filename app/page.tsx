@@ -10,5 +10,7 @@ export default async function Home() {
     throw error;
   }
 
-  return <>{data && <BusinessList businessData={data} />}</>;
+  return (
+    <div className="mt-12">{data && <BusinessList businessData={data} />}</div>
+  );
 }
