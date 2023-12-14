@@ -33,7 +33,7 @@ const BusinessList = ({
 
   return (
     <div>
-      <Table dataSource={businessData} columns={columns} />
+      <Table dataSource={businessData} columns={columns} pagination={false} />
     </div>
   );
 };
