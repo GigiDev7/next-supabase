@@ -1,3 +1,4 @@
+import BusinessList from "@/components/Businesses/BusinessList";
 import { getAllBusinesses } from "@/utils/apis/business";
 import { cookies } from "next/headers";
 
@@ -6,16 +7,8 @@ export default async function Home() {
   const { data, error } = await getAllBusinesses(cookieStore);
 
   if (error) {
-    throw new Error();
+    throw error;
   }
 
-  return (
-    <>
-      {data && (
-        <div className="">
-          <p>{data[0].created_by}</p>
-        </div>
-      )}
-    </>
-  );
+  return <>{data && <BusinessList businessData={data} />}</>;
 }
