@@ -1,7 +1,6 @@
 "use client";
 
 import { Table } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { Tables } from "@/utils/supabase/database.types";
 import Link from "next/link";
 
@@ -32,8 +31,13 @@ const BusinessList = ({
   ];
 
   return (
-    <div>
-      <Table dataSource={businessData} columns={columns} pagination={false} />
+    <div className="w-1/2 mt-12 mx-auto">
+      <Table
+        dataSource={businessData}
+        rowKey={(record) => record.id}
+        columns={columns}
+        pagination={false}
+      />
     </div>
   );
 };

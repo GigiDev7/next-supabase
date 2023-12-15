@@ -1,3 +1,4 @@
+import AuthButton from "@/components/AuthButton";
 import AddBusinessButton from "@/components/Businesses/AddBusinessButton";
 import BusinessList from "@/components/Businesses/BusinessList";
 import { getAllBusinesses } from "@/utils/apis/business";
@@ -12,9 +13,10 @@ export default async function Home() {
   }
 
   return (
-    <div className="mt-12">
-      <div className="fixed left-10">
+    <div className="mt-12 w-full">
+      <div className="flex justify-between w-full px-12">
         <AddBusinessButton />
+        <AuthButton />
       </div>
       {data && <BusinessList businessData={data} />}
     </div>
