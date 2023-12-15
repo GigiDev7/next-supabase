@@ -2,11 +2,16 @@ import AuthButton from "@/components/AuthButton";
 import AddBusinessButton from "@/components/Businesses/AddBusinessButton";
 import BusinessList from "@/components/Businesses/BusinessList";
 import { getAllBusinesses } from "@/utils/apis/business";
+import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
 export default async function Home() {
   const cookieStore = cookies();
-  const { data, error } = await getAllBusinesses(cookieStore);
+  const supabase = createClient(cookieStore);
+  const { data: businesses, error } = await getAllBusinesses(cookieStore);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (error) {
     throw error;
@@ -18,7 +23,12 @@ export default async function Home() {
         <AddBusinessButton />
         <AuthButton />
       </div>
-      {data && <BusinessList businessData={data} />}
+      {businesses && user && (
+        <BusinessList
+          businessData={businesses}
+          userEmail={user.email as string}
+        />
+      )}
     </div>
   );
 }

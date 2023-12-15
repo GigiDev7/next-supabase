@@ -7,3 +7,17 @@ export async function getAllBusinesses(cookieStore: ReadonlyRequestCookies) {
 
   return { data, error, status };
 }
+
+export async function getSingleBusiness(
+  cookieStore: ReadonlyRequestCookies,
+  businessId: string
+) {
+  const supabase = createClient(cookieStore);
+  const { data, error, status } = await supabase
+    .from("businesses")
+    .select()
+    .eq("id", businessId)
+    .maybeSingle();
+
+  return { data, error, status };
+}

@@ -1,7 +1,23 @@
-import React from "react";
+import BusinessForm from "@/components/Businesses/BusinessForm";
+import { getSingleBusiness } from "@/utils/apis/business";
+import { cookies } from "next/headers";
 
-const Page = ({ params }: { params: { businessId: string } }) => {
-  return <div>{params.businessId}</div>;
+const Page = async ({ params }: { params: { businessId: string } }) => {
+  const cookieStore = cookies();
+  const { data, error } = await getSingleBusiness(
+    cookieStore,
+    params.businessId
+  );
+
+  if (error) {
+    throw error;
+  }
+
+  return (
+    <div>
+      <BusinessForm business={data ? data : undefined} />
+    </div>
+  );
 };
 
 export default Page;

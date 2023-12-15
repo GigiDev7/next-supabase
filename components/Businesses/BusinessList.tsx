@@ -4,18 +4,23 @@ import { Table } from "antd";
 import { Tables } from "@/utils/supabase/database.types";
 import Link from "next/link";
 
-const BusinessList = ({
-  businessData,
-}: {
+interface Props {
   businessData: Tables<"businesses">[];
-}) => {
+  userEmail: string;
+}
+
+const BusinessList = ({ businessData, userEmail }: Props) => {
   const columns = [
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
       render: (val: string, record: Tables<"businesses">) => {
-        return <Link href={`/${record.id}`}>{val}</Link>;
+        if (userEmail === record.created_by) {
+          return <Link href={`/${record.id}`}>{val}</Link>;
+        } else {
+          return <span>{val}</span>;
+        }
       },
     },
     {
