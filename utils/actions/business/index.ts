@@ -17,3 +17,14 @@ export async function editBusiness(businessId: string, formData: FormData) {
 
   return redirect("/");
 }
+
+export async function deleteBusiness(businessId: string) {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  await supabase.from("businesses").delete().eq("id", businessId);
+
+  revalidatePath("/");
+
+  return redirect("/");
+}

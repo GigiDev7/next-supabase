@@ -8,14 +8,22 @@ import { cookies } from "next/headers";
 export default async function Home() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data: businesses, error } = await getAllBusinesses(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (error) {
-    throw error;
+  const [businessResponse, authResponse] = await Promise.all([
+    getAllBusinesses(cookieStore),
+    supabase.auth.getUser(),
+  ]);
+
+  if (businessResponse.error) {
+    throw businessResponse.error;
   }
+
+  if (authResponse.error) {
+    throw authResponse.error;
+  }
+
+  const businesses = businessResponse.data;
+  const user = authResponse.data.user;
 
   return (
     <div className="mt-12 w-full">
