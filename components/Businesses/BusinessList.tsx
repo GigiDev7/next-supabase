@@ -2,6 +2,7 @@
 
 import { Table } from "antd";
 import { Tables } from "@/utils/supabase/database.types";
+import dayjs from "dayjs";
 import Link from "next/link";
 
 interface Props {
@@ -32,11 +33,14 @@ const BusinessList = ({ businessData, userEmail }: Props) => {
       title: "Created At",
       dataIndex: "created_at",
       key: "created_at",
+      render: (val: any, record: Tables<"businesses">) => {
+        return <span>{dayjs(val).format("YYYY-MM-DD")}</span>;
+      },
     },
   ];
 
   return (
-    <div className="w-1/2 mt-12 mx-auto">
+    <div className="w-2/3 lg:w-1/2 mt-12 mx-auto">
       <Table
         dataSource={businessData}
         rowKey={(record) => record.id}
