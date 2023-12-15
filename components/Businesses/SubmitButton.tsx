@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+// @ts-ignore
 import { useFormStatus } from "react-dom";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
