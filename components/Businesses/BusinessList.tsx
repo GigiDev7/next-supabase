@@ -33,7 +33,7 @@ const BusinessList = ({ businessData, userEmail }: Props) => {
       title: "Created At",
       dataIndex: "created_at",
       key: "created_at",
-      render: (val: any, record: Tables<"businesses">) => {
+      render: (val: string, record: Tables<"businesses">) => {
         return <span>{dayjs(val).format("YYYY-MM-DD")}</span>;
       },
     },
