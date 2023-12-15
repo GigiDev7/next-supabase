@@ -17,7 +17,7 @@ const BusinessList = ({ businessData, userEmail }: Props) => {
       key: "name",
       render: (val: string, record: Tables<"businesses">) => {
         if (userEmail === record.created_by) {
-          return <Link href={`/${record.id}`}>{val}</Link>;
+          return <Link href={`/${record.id}`}>{val} (edit)</Link>;
         } else {
           return <span>{val}</span>;
         }

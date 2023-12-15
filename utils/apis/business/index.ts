@@ -3,7 +3,10 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 
 export async function getAllBusinesses(cookieStore: ReadonlyRequestCookies) {
   const supabase = createClient(cookieStore);
-  const { data, error, status } = await supabase.from("businesses").select();
+  const { data, error, status } = await supabase
+    .from("businesses")
+    .select()
+    .order("created_at", { ascending: false });
 
   return { data, error, status };
 }

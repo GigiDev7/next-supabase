@@ -28,3 +28,16 @@ export async function deleteBusiness(businessId: string) {
 
   return redirect("/");
 }
+
+export async function addBusiness(userEmail: string, formData: FormData) {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  await supabase
+    .from("businesses")
+    .insert({ name: formData.get("name") as string, created_by: userEmail });
+
+  revalidatePath("/");
+
+  return redirect("/");
+}
